@@ -17,6 +17,27 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- Data talbe plugin -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+  <style>
+    .error {
+      color: rgb(219, 20, 80);
+      font-weight: 700;
+      display: block;
+      padding: 6px 0;
+      font-size: 14px;
+    }
+
+    .form-control.error {
+      border-color: rgb(219, 20, 80);
+      padding: .375rem .75rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -47,21 +68,17 @@
               <input type="hidden" name="txt_for" id="txt_for">
               <input type="hidden" name="txt_order_id" id="txt_order_id">
               <input type="text" id="txt_full_name" name="txt_full_name" class="form-control" placeholder="Full Name">
-              <div id="txt_full_name_error" class="invalid-feedback"></div>
             </div>
             <div class="mb-2 mt-2">
               <input type="text" id="txt_email" name="txt_email" class="form-control" placeholder="Email">
-              <div id="txt_email_error" class="invalid-feedback"></div>
             </div>
             <div class="mb-2 mt-2">
               <input type="number" id="txt_contact" name="txt_contact" class="form-control"
                 placeholder="Contact Number">
-              <div id="txt_contact_error" class="invalid-feedback"></div>
             </div>
             <div class="mb-2 mt-2">
               <textarea id="txt_description" name="txt_description" class="form-control"
                 placeholder="Description"></textarea>
-              <div id="txt_description_error" class="invalid-feedback"></div>
             </div>
             <div id="submit_div" class="mb-2 mt-2">
               <button name="Submit" class="btn btn-success">Submit</button>
@@ -180,21 +197,11 @@
             minlength: 'Min length - 10 numbers',
             maxlength: 'Max length - 10 numbers'
           },
-          txt_description: 'Description is required',
+          txt_description: 'Description is required / min - 10 char / max - 100 char',
           minlength: 'Min length - 10 characters',
           maxlength: 'Max length - 100 characters'
         },
-        errorPlacement: function (error, element) {
-          // Place error messages below the form elements
-          error.appendTo(element.parent().find(".invalid-feedback"));
-          element.addClass("is-invalid");
-        },
-        highlight: function (element) {
-          $(element).addClass("is-invalid");
-        },
-        unhighlight: function (element) {
-          $(element).removeClass("is-invalid");
-        },
+
         submitHandler: function (form) {
           // Handle form submission (example: AJAX)
           alert('Form submitted successfully');
