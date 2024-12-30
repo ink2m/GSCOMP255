@@ -24,6 +24,16 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
+  <!-- Toast plugin / CSS -->
+  <link rel="stylesheet" href="/path/to/bootstrap.min.css">
+  <link rel="stylesheet" href="/path/to/toast.min.css">
+
+  <!-- Toast plugin / JavaScript -->
+  <script src="/path/to/jquery.min.js"></script>
+  <script src="/path/to/popper.min.js"></script>
+  <script src="/path/to/bootstrap.min.js"></script>
+  <script src="/path/to/toast.min.js"></script>
+  
   <style>
     .error {
       color: rgb(219, 20, 80);
@@ -65,7 +75,7 @@
         <div id="main_form" style="display: none;">
           <form id="insert_form" role="form" autocomplete="off" method="post">
             <div class="mb-2 mt-2">
-              <input type="hidden" name="txt_for" id="txt_for">
+              <input type="text" name="txt_for" id="txt_for">
               <input type="hidden" name="txt_order_id" id="txt_order_id">
               <input type="text" id="txt_full_name" name="txt_full_name" class="form-control" placeholder="Full Name">
             </div>
@@ -77,7 +87,7 @@
                 placeholder="Contact Number">
             </div>
             <div class="mb-2 mt-2">
-              <textarea id="txt_description" name="txt_description" class="form-control"
+              <textarea type="text" id="txt_description" name="txt_description" class="form-control"
                 placeholder="Description"></textarea>
             </div>
             <div id="submit_div" class="mb-2 mt-2">
@@ -161,6 +171,13 @@
     $(document).ready(function () {
       // Initially hide the form
       $('#main_form').hide();
+      $('#txt_for').val('INSERT');
+
+      // $('#txt_for').val('');
+      $('#txt_full_name').val('');
+      $('#txt_email').val('');
+      $('#txt_contact').val('');
+      $('#txt_description').val('');
 
       // Form validation
       $("#insert_form").validate({
@@ -203,8 +220,31 @@
         },
 
         submitHandler: function (form) {
-          // Handle form submission (example: AJAX)
-          alert('Form submitted successfully');
+          // Form submission
+          let formData = new FormData(form);
+          // insert form
+          if ($('#txt_for').val() === 'INSERT') {
+            $.ajax({
+              url: '/saveFormData',
+              data: $('#insert_form').serializeArray(),
+              dataType: 'json',
+              method: 'POST',
+              processData: true,
+              error: function (error) {
+                console.log(error);
+
+              },
+              success: function (results) {
+                if (results.status == 200) {
+                  window.aleart("Success");
+                }
+                if (results.status == 500) {
+                  window.aleart("Internal Server Error!!!");
+                }
+              }
+            })
+          }
+          // Insert form end
         }
       });
     });
