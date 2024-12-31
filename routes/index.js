@@ -4,7 +4,7 @@ var connection = require('../config/db');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Sale! Sale! Sale!' });
+  res.render('index', { title: 'GS Divition 527A, Residents information !' });
 });
 
 // /getUsersData
