@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 // /getUsersData
 router.get('/getUsersData', function (req, res, next) {
-  connection.query('SELECT * FROM `tbl_node_crud` ORDER BY `tbl_node_crud`.`user_id` ASC ', function (err, rows) {
+  connection.query('SELECT * FROM tbl_node_crud ORDER BY user_id ASC ', function (err, rows) {
     if (err) {
       console.log(err);
       res.status(500).send({ message: "Internal Error !!!", status: 500 });

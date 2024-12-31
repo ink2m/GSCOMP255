@@ -15,6 +15,7 @@ function connectDb(){
                 console.log("Database Connected Successful !!!");
                 console.log(connection);
             } else {
+                console.log('err', err)
                 console.log("Database Connection Error !!!")
             }
         });

@@ -82,7 +82,7 @@
               <input type="hidden" name="txt_order_id" id="txt_order_id">
               <label for="txt_full_name">Full Name</label>
               <input type="text" id="txt_full_name" name="txt_full_name" class="form-control" placeholder="Full Name">
-                          </div>
+            </div>
             <div class="mb-2 mt-2">
               <label for="txt_email">Email</label>
               <input type="text" id="txt_email" name="txt_email" class="form-control" placeholder="Email">
@@ -227,13 +227,8 @@
         {
           "data": null, "title": "Action", // Combined action column
           "render": function (data, type, row) {
-            return `
-          <button type="button" data-toggle="tooltip" title="Edit User" onclick="getUserData('${row.user_id}');" class="btn text-success">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button type="button" data-toggle="tooltip" title="Delete User" onclick="deleteUserData('${row.user_id}');" class="btn text-danger">
-            <i class="fa fa-trash"></i>
-          </button>`;
+            return '<button type="button" data-bs-toggle="tooltip" title="Edit User" onclick="getUserData(\'' + data + '\');" class="btn text-success"> <i class="fa fa-edit"></i></button>' +
+              '<button type="button" data-bs-toggle="tooltip" title="Delete User" onclick="deleteUserData(\'' + data + '\');" class="btn text-danger"><i class="fa fa-trash"></i></button>'
           }
         },
         { "data": "inserted_date", "name": "inserted_date", "title": "Created date" }
@@ -266,7 +261,7 @@
           $.ajax({
             type: 'POST',
             url: '/deleteData',
-            data: { id: id }, 
+            data: { id: id },
             dataType: 'json',
             success: function (result) {
               if (result.status == 200) {
