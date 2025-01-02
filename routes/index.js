@@ -43,10 +43,36 @@ router.post('/saveFormData', function (req, res) {
   });
 });
 
+// edit request
+router.post('/getUsers/:id', function(req, res) {
+  const userID = req.params.id;
+
+  if (!userID) {
+    return res.status(400).json({ message: "User ID is required", status: 400 });
+  }
+
+  connection.query("SELECT * FROM tbl_node_crud WHERE user_id = ?", [userID], function (err, row) {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: "Internal server error", status: 500 });
+    } else {
+      if (row.length > 0) {
+        console.log("Selected ID is -> " + userID);
+        res.json({ data: row[0], message: "Data load successful", status: 200 });
+      } else {
+        res.status(404).json({ message: "No record found for this ID", status: 404 });
+      }
+    }
+  });
+});
+
+
+
+
 // delete request
-router.post('/deleteData', function(req, res) {
+router.post('/deleteData', function (req, res) {
   var userID = req.body.id;
-  connection.query("DELETE FROM tbl_node_crud WHERE user_id = ? ", [userID], function(err, results) {
+  connection.query("DELETE FROM tbl_node_crud WHERE user_id = ? ", [userID], function (err, results) {
     if (err) {
       console.log(userID);
       console.log(err, 'Internal Error !!! Record cannot be deleted');
