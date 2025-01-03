@@ -1,17 +1,30 @@
+
+
 services:
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
-      - '3001:3000'
-  #   depends_on:
-  #     - db
-  # db:
-  #   image: mysql
-  #   ports:
-  #     - '3306:3306'
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=root
-  #     - MYSQL_PASSWORD=
-  #     - MYSQL_DATABASE=node_js_crud
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_USER: your_user
+      DB_PASS: your_password
+      DB_NAME: your_database
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: your_password
+      MYSQL_DATABASE: your_database
+      MYSQL_USER: your_user
+      MYSQL_PASSWORD: your_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

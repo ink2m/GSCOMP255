@@ -248,7 +248,7 @@
     function getUserData(id) {
       $.ajax({
   url: '/getUsers/' + id,
-  method: "POST",  // Change GET to POST if required
+  method: "GET",  // Change GET to POST if required
   data: { id: id },  // Send the ID in the body if needed
   dataType: "json",
   success: function (result) {

@@ -44,7 +44,7 @@ router.post('/saveFormData', function (req, res) {
 });
 
 // edit request
-router.post('/getUsers/:id', function(req, res) {
+router.get('/getUsers/:id', function(req, res) {
   const userID = req.params.id;
 
   if (!userID) {
